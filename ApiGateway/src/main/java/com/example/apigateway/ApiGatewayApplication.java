@@ -1,13 +1,13 @@
-package com.example.rankingbook;
+package com.example.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RankingBookApplication {
+public class ApiGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RankingBookApplication.class, args);
+        SpringApplication.run(ApiGatewayApplication.class, args);
     }
 
 }
