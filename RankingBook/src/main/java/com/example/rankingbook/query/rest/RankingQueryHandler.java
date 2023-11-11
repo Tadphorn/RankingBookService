@@ -3,6 +3,7 @@ package com.example.rankingbook.query.rest;
 import com.example.rankingbook.core.data.BookEntity;
 import com.example.rankingbook.core.data.BookRepository;
 import com.example.rankingbook.query.FindBooksQuery;
+import com.example.rankingbook.query.RecommendBookQuery;
 import com.example.rankingbook.query.SortBookViewQuery;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.axonframework.queryhandling.QueryHandler;
@@ -58,6 +59,22 @@ public class RankingQueryHandler {
                 Criteria.where("category").is(category),
                 Criteria.where("type").is(type)
         );
+        Query query1 = new Query(criteria).with(Sort.by(Sort.Order.desc("view")));
+        List<BookEntity> storedBooks = mongoTemplate.find(query1, BookEntity.class);
+        for (BookEntity bookEntity : storedBooks) {
+            BookRestModel bookRestModel = new BookRestModel();
+            BeanUtils.copyProperties(bookEntity, bookRestModel);
+            bookRest.add(bookRestModel);
+        }
+        return bookRest;
+    }
+
+    @QueryHandler
+    public List<BookRestModel> recommendBook(RecommendBookQuery query) {
+        System.out.println("do sort" + query.getCategory());
+        List<BookRestModel> bookRest = new ArrayList<>();
+        //mongo query command
+        Criteria criteria = Criteria.where("category").is(query.getCategory());
         Query query1 = new Query(criteria).with(Sort.by(Sort.Order.desc("view")));
         List<BookEntity> storedBooks = mongoTemplate.find(query1, BookEntity.class);
         for (BookEntity bookEntity : storedBooks) {

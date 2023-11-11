@@ -38,6 +38,7 @@ public class RankingQueryController {
         return (ArrayList) book;
     }
 
+    //Type Ranking
     @GetMapping("/getPopularView/{category}/{type}")
     public ArrayList getPopularView(@PathVariable("category") String category, @PathVariable("type") String type) {
         // Create a list to store the parameters
@@ -50,8 +51,7 @@ public class RankingQueryController {
         try {
             jsonParameters = objectMapper.writeValueAsString(parameters);
         } catch (JsonProcessingException e) {
-            // Handle the exception
-            return new ArrayList(); // or an appropriate response
+            return new ArrayList();
         }
         // Send the JSON message using RabbitMQ
         MessageProperties messageProperties = new MessageProperties();
@@ -59,6 +59,15 @@ public class RankingQueryController {
         Message message = new Message(jsonParameters.getBytes(), messageProperties);
 
         Object book = rabbitTemplate.convertSendAndReceive("BookExchange", "descbookview", message);
+        return (ArrayList) book;
+    }
+
+    //Recommend book
+    @GetMapping("/getRecommendBook/{category}")
+    public ArrayList getRecommendBook(@PathVariable("category") String category) {
+        MessageProperties messageProperties = new MessageProperties();
+        messageProperties.setContentType("application/json");
+        Object book = rabbitTemplate.convertSendAndReceive("BookExchange", "recommend", category);
         return (ArrayList) book;
     }
 

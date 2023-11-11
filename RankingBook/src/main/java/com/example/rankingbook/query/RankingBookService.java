@@ -43,6 +43,15 @@ public class RankingBookService {
         ).join();
     }
 
+    //recommend book
+    @RabbitListener(queues = "recommendQueue")
+    public List<BookRestModel> getRecommend(String infoPage) {
+        RecommendBookQuery recommendBookQuery = new RecommendBookQuery(infoPage);
+        return queryGateway.query(
+                recommendBookQuery,
+                ResponseTypes.multipleInstancesOf(BookRestModel.class)
+        ).join();
+    }
 
 
 
