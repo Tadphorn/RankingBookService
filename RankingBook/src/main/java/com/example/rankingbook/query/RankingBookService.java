@@ -35,9 +35,8 @@ public class RankingBookService {
 
     //sort desc book view
     @RabbitListener(queues = "SortBookViewQueue")
-    public List<BookRestModel> getBookByView() {
-        System.out.println("sort book view");
-        SortBookViewQuery sortBookByView = new SortBookViewQuery();
+    public List<BookRestModel> getBookByView(ArrayList infoPage) {
+        SortBookViewQuery sortBookByView = new SortBookViewQuery(infoPage);
         return queryGateway.query(
                 sortBookByView,
                 ResponseTypes.multipleInstancesOf(BookRestModel.class)
