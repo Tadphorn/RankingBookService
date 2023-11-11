@@ -1,7 +1,7 @@
 # RankingBookService
 ## RabbitMQ
 * getBook
-  * Queue: getbook
+  * Queue: GetBookQueue
   * Exchange: BookExchange
   * Routing key: getbook
 * sortBookView
