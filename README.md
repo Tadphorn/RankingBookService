@@ -5,13 +5,13 @@
   * Exchange: BookExchange
   * Routing key: getbook
 * sortBookView
- * Queue: SortBookViewQueue
- * Exchange: BookExchange
- * Routing key: descbookview
+  * Queue: SortBookViewQueue
+  * Exchange: BookExchange
+  * Routing key: descbookview
 * recommendBook
- * Queue: recommendQueue
- * Exchange: BookExchange
- * Routing key: recommend
+  * Queue: recommendQueue
+  * Exchange: BookExchange
+  * Routing key: recommend
 ## Path
 * getBook
   * http://localhost:8082/book-service/getBook
