@@ -12,6 +12,10 @@
   * Queue: recommendQueue
   * Exchange: BookExchange
   * Routing key: recommend
+* homebook
+ * Queue: RankBookTypeQueue
+ * Exchange: BookExchange
+ * Routing key: rankbytype
 ## Path
 * getBook
   * http://localhost:8082/book-service/getBook
