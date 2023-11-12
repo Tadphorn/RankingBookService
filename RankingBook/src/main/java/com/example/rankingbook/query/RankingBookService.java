@@ -53,6 +53,14 @@ public class RankingBookService {
         ).join();
     }
 
+    @RabbitListener(queues = "RankBookTypeQueue")
+    public List<BookRestModel> sortBookByType(String bookType) {
+        RankBookType rankBookType = new RankBookType(bookType);
+        return queryGateway.query(
+                rankBookType,
+                ResponseTypes.multipleInstancesOf(BookRestModel.class)
+        ).join();
+    }
 
 
 

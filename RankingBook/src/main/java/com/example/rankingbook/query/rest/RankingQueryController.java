@@ -71,4 +71,11 @@ public class RankingQueryController {
         return (ArrayList) book;
     }
 
+    @GetMapping("/rankBookType/{bookType}")
+    public ArrayList getRankedBookType(@PathVariable("bookType") String bookType) {
+        MessageProperties messageProperties = new MessageProperties();
+        messageProperties.setContentType("application/json");
+        Object book = rabbitTemplate.convertSendAndReceive("BookExchange", "rankbytype", bookType);
+        return (ArrayList) book;
+    }
 }
